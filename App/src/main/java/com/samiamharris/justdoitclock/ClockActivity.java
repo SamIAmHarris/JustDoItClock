@@ -21,9 +21,6 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
     // pass data between fragments (something with bundle)
     // not sure if this will have the alarm manager
 
-    AlarmData[] arrayAlarmData = {new AlarmData(),
-    new AlarmData(),
-    new AlarmData()};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
