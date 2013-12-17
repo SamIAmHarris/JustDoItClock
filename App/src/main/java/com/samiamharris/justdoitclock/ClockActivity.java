@@ -79,8 +79,6 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
                 .replace(R.id.container, editFragment )
                 .addToBackStack(null)
                 .commit();
-
-
     }
 
     @Override
