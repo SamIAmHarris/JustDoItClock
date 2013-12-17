@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
-public class ClockActivity extends Activity implements ClockFragment.OnAddEditListener {
+public class ClockActivity extends Activity implements ClockFragment.OnAddEditListener, EditFragment.OnListItemClickListener {
 
 
     // What will this class need to do?
@@ -82,4 +82,17 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
 
 
     }
+
+    @Override
+    public void onEditAlarmSelected() {
+
+        AddFragment addFragment = new AddFragment();
+
+        getFragmentManager().beginTransaction()
+                .replace(R.id.container, addFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+
 }
