@@ -22,6 +22,11 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
     // not sure if this will have the alarm manager
 
 
+    AlarmData[] figureoutAlarmArray = new AlarmData[]
+            {
+
+            };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +80,8 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
 
         EditFragment editFragment = new EditFragment();
 
+
+
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, editFragment )
                 .addToBackStack(null)
@@ -94,9 +101,12 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
 
 
     @Override
-    public void onSaveSelected() {
+    public void onSaveSelected(String passedAlarm) {
 
         ClockFragment clockFragment = new ClockFragment();
+
+        //retrieve the Alarm Data Object from Add Fragment
+        //AlarmData newData = Storage.getInstance().getMyData(this);
 
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, clockFragment)
@@ -104,4 +114,6 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
                 .commit();
 
     }
+
+
 }
