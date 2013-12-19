@@ -51,8 +51,6 @@ public class EditAdapter extends ArrayAdapter<AlarmData> {
         }
 
 
-
-
         holder.switchView.setChecked(true);
         holder.nameView.setText("Weekday Alarm");
         holder.timeView.setText("7:30AM");

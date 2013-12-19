@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
+import java.util.ArrayList;
+
 public class ClockActivity extends Activity implements ClockFragment.OnAddEditListener, EditFragment.OnListItemClickListener, AddFragment.OnSaveListener {
 
 
@@ -21,11 +23,6 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
     // pass data between fragments (something with bundle)
     // not sure if this will have the alarm manager
 
-
-    AlarmData[] figureoutAlarmArray = new AlarmData[]
-            {
-
-            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +98,7 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
 
 
     @Override
-    public void onSaveSelected(String passedAlarm) {
+    public void onSaveSelected() {
 
         ClockFragment clockFragment = new ClockFragment();
 

@@ -14,95 +14,100 @@ import java.util.ArrayList;
  */
 public class Storage {
 
+    //
+    // Singleton pattern here:
+    //
+    private static Storage storageRef;
+    private Storage(){
 
-//    //
-//    // Singleton pattern here:
-//    //
-//    private static Storage storageRef;
-//    private Storage(){
-//        //ToDo here
-//
-//    }
-//    public static Storage getInstance()
-//    {
-//        if (storageRef == null){
-//            storageRef = new Storage();
-//        }
-//        return storageRef;
-//    }
-//
-//    //
-//    // Serialization here
-//    //
-//
-//    static String DATA_FILE = "data_file_single";
-//    static String DATA_FILE_ARRAY = "data_file_single";
-//
-//    //Save a single piece of a custom class
-//
-//    public static boolean saveMyData(Context context, AlarmData myData) {
-//        try {
-//            FileOutputStream fos = context.openFileOutput(DATA_FILE, Context.MODE_PRIVATE);
-//            ObjectOutputStream oos = new ObjectOutputStream(fos);
-//            oos.writeObject(myData);
-//            oos.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//
-//        return true;
-//    }
-//
-//    public static AlarmData getMyData(Context context) {
-//        try {
-//            FileInputStream fis = context.openFileInput(DATA_FILE);
-//            ObjectInputStream is = new ObjectInputStream(fis);
-//            Object readObject = is.readObject();
-//            is.close();
-//
-//            if(readObject != null && readObject instanceof AlarmData) {
-//                return (AlarmData) readObject;
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-//
-//
-//
-//    public static boolean saveMyDataArray(Context context, AlarmData[] myData) {
-//        try {
-//            FileOutputStream fos = context.openFileOutput(DATA_FILE_ARRAY, Context.MODE_PRIVATE);
-//            ObjectOutputStream oos = new ObjectOutputStream(fos);
-//            oos.writeObject(myData);
-//            oos.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//
-//        return true;
-//    }
-//
-//    public static AlarmData[] getMyDataArray(Context context) {
-//        try {
-//            FileInputStream fis = context.openFileInput(DATA_FILE_ARRAY);
-//            ObjectInputStream is = new ObjectInputStream(fis);
-//            Object readObject = is.readObject();
-//            is.close();
-//
-//            if(readObject != null && readObject instanceof AlarmData[]) {
-//                return (AlarmData[]) readObject;
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
+    }
+
+
+    public static Storage getInstance()
+    {
+        if (storageRef == null){
+            storageRef = new Storage();
+        }
+        return storageRef;
+    }
+
+    public static void add(Context context, AlarmData addedData) {
+
+        ArrayList<AlarmData> savedAlarmArray;
+
+        try{
+        savedAlarmArray = getMyDataArray(context);
+
+            if(savedAlarmArray == null){
+                savedAlarmArray = new ArrayList<AlarmData>();
+            }
+            savedAlarmArray.add(addedData);
+            saveMyDataArray(context, savedAlarmArray);
+
+
+
+        }catch(Exception e){
+
+        }
+
+    }
+
+    public static void remove(Context context, AlarmData removedData) {
+
+        ArrayList<AlarmData> savedAlarmArray;
+
+        try{
+            savedAlarmArray = getMyDataArray(context);
+
+            if(savedAlarmArray==null) {
+
+                return;
+            }
+                savedAlarmArray.remove(removedData);
+                saveMyDataArray(context, savedAlarmArray);
+
+        }catch(Exception e){
+
+        }
+    }
+    //
+    // Serialization here
+    //
+
+    static String DATA_FILE = "data_file_single";
+    static String DATA_FILE_ARRAY = "data_file_array";
+
+
+
+    private static boolean saveMyDataArray(Context context, ArrayList<AlarmData> myData) {
+        try {
+            FileOutputStream fos = context.openFileOutput(DATA_FILE_ARRAY, Context.MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(myData);
+            oos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    public static ArrayList<AlarmData> getMyDataArray(Context context) {
+        try {
+            FileInputStream fis = context.openFileInput(DATA_FILE_ARRAY);
+            ObjectInputStream is = new ObjectInputStream(fis);
+            Object readObject = is.readObject();
+            is.close();
+
+            if(readObject != null && readObject instanceof AlarmData) {
+                return (ArrayList<AlarmData>) readObject;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
