@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.sql.Array;
+import java.util.HashMap;
+
 /**
  * Created by samharris on 12/16/13.
  */
@@ -24,6 +27,32 @@ public class EditAdapter extends ArrayAdapter<AlarmData> {
         this.mContext = context;
         this.mLayoutResourceId = layoutResourceId;
         this.mData = data;
+    }
+
+
+    public void updateData() {
+
+        HashMap<String,AlarmData> alarms = Storage.getInstance().getMyData(mContext);
+
+        //get this to create an array of the alarms
+       // for(AlarmData alarm : alarms.values()){
+        AlarmData[] setAlarms =  new AlarmData[alarms.size()];
+
+        int i = 0;
+        for(AlarmData singleAlarm : alarms.values()){
+            setAlarms[i]= singleAlarm;
+            i++;
+        }
+
+        if(setAlarms != null){
+            mData = setAlarms;
+        }
+        this.notifyDataSetChanged();
+    }
+
+    @Override
+    public int getCount() {
+        return mData.length;
     }
 
     @Override
@@ -50,10 +79,17 @@ public class EditAdapter extends ArrayAdapter<AlarmData> {
             holder = (PlaceHolder) row.getTag();
         }
 
+        AlarmData data = mData[position];
 
-        holder.switchView.setChecked(true);
-        holder.nameView.setText("Weekday Alarm");
-        holder.timeView.setText("7:30AM");
+
+        holder.switchView.setChecked(data.ismSwitch());
+        holder.nameView.setText(data.getmName());
+
+        String hour = String.valueOf(data.getmHour());
+        String minute = String.valueOf(data.getmMinute());
+
+        holder.timeView.setText(hour + ":" + minute);
+
 
 
         return row;

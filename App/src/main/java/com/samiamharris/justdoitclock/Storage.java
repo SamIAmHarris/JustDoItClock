@@ -81,6 +81,22 @@ public class Storage {
         }
     }
 
+    public AlarmData getDataForName(Context context,String name){
+        AlarmData result = null;
+        HashMap<String,AlarmData> myData;
+        try{
+            myData = getMyData(context);
+            //if it doesnt exist, stop one.
+            if(myData == null){
+                return result;
+            }
+            result = myData.get(name);
+        }catch(Exception e){
+
+        }
+        return result;
+    }
+
 
     //will remove an alarm from the file
     public static void remove(Context context , AlarmData customAlarm){
@@ -93,7 +109,7 @@ public class Storage {
             }
             //remember to turn it off
             customAlarm.turnOff(context);
-            myData.remove(customAlarm);
+            myData.remove(customAlarm.getmName());
             saveMyData(context,myData);
         }catch(Exception e){
 
