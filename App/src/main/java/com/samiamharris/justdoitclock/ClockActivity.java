@@ -86,10 +86,14 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
     }
 
     @Override
-    public void onEditAlarmSelected() {
+    public void onEditAlarmSelected(String name) {
 
         //pass the name up to the fragment.
         AddFragment addFragment = new AddFragment();
+
+        Bundle args = new Bundle();
+        args.putString("name", name);
+        addFragment.setArguments(args);
 
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, addFragment)

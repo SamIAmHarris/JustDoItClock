@@ -30,19 +30,7 @@ public class EditAdapter extends ArrayAdapter<AlarmData> {
     }
 
 
-    public void updateData() {
-
-        HashMap<String,AlarmData> alarms = Storage.getInstance().getMyData(mContext);
-
-        //get this to create an array of the alarms
-       // for(AlarmData alarm : alarms.values()){
-        AlarmData[] setAlarms =  new AlarmData[alarms.size()];
-
-        int i = 0;
-        for(AlarmData singleAlarm : alarms.values()){
-            setAlarms[i]= singleAlarm;
-            i++;
-        }
+    public void setData(AlarmData[] setAlarms) {
 
         if(setAlarms != null){
             mData = setAlarms;
