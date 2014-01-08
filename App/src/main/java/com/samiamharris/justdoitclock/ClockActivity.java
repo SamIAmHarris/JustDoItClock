@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,7 +15,7 @@ import android.os.Build;
 
 import java.util.ArrayList;
 
-public class ClockActivity extends Activity implements ClockFragment.OnAddEditListener, EditFragment.OnListItemClickListener, AddFragment.OnSaveListener {
+public class ClockActivity extends Activity implements ClockFragment.OnAddEditListener, EditFragment.OnListItemClickListener, AddFragment.OnSaveListener, PhraseFragment.onAlarmListener {
 
 
     // What will this class need to do?
@@ -118,4 +119,33 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
     }
 
 
+    @Override
+    public void onPhraseTyped() {
+
+        ClockFragment clockFragment = new ClockFragment();
+
+        //retrieve the Alarm Data Object from Add Fragment
+        //AlarmData newData = Storage.getInstance().getMyData(this);
+
+        getFragmentManager().beginTransaction()
+                .replace(R.id.container, clockFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        PhraseFragment phraseFragment = new PhraseFragment();
+
+        //retrieve the Alarm Data Object from Add Fragment
+        //AlarmData newData = Storage.getInstance().getMyData(this);
+
+        getFragmentManager().beginTransaction()
+                .replace(R.id.container, phraseFragment)
+                .addToBackStack(null)
+                .commit();
+
+    }
 }

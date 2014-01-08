@@ -29,9 +29,23 @@ public class AlarmReceiver extends BroadcastReceiver{
         AlarmData receivedAlarm = alarms.get(whichAlarm);
         if(receivedAlarm != null){
             receivedAlarm.performAlarm(context);
-            //alarm is complete, we might want to remove it- depending on how we have things setup
-            Storage.remove(context,receivedAlarm);
+
+            try
+            {
+
+                Intent alarmIntent = new Intent( context, ClockActivity.class );
+                alarmIntent.addFlags(Intent.FLAG_FROM_BACKGROUND);
+                alarmIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                alarmIntent.putExtra("Alarm Name", receivedAlarm.getmName());
+                context.startActivity(alarmIntent);
+            }
+            catch( Exception e )
+            {
+
+            }
         }
+
 
         //Release the lock
         wl.release();
