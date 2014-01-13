@@ -139,7 +139,12 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
 
         PhraseFragment phraseFragment = new PhraseFragment();
 
-        //retrieve the Alarm Data Object from Add Fragment
+        String activeName = intent.getStringExtra("Alarm Name");
+
+        Bundle args = new Bundle();
+        args.putString("activeName", activeName);
+        phraseFragment.setArguments(args);
+        //retrieve the Alarm Data Name
         //AlarmData newData = Storage.getInstance().getMyData(this);
 
         getFragmentManager().beginTransaction()
