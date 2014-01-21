@@ -2,6 +2,7 @@ package com.samiamharris.justdoitclock;
 
 import android.content.Context;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -119,6 +120,13 @@ public class Storage {
     //used to get a list of all current alarms.
     public static HashMap<String,AlarmData> getMyData(Context context) {
         try {
+
+            File f = context.getFileStreamPath(DATA_FILE_ARRAY);
+            if(!f.exists()){
+                HashMap<String,AlarmData> myData;
+                myData = new HashMap<String, AlarmData>();
+                saveMyData(context,myData);
+            }
             FileInputStream fis = context.openFileInput(DATA_FILE_ARRAY);
             ObjectInputStream is = new ObjectInputStream(fis);
             Object readObject = is.readObject();

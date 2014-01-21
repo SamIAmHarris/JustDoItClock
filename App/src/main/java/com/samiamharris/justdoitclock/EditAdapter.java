@@ -5,11 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import java.sql.Array;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -20,6 +25,9 @@ public class EditAdapter extends ArrayAdapter<AlarmData> {
     Context mContext;
     int mLayoutResourceId;
     AlarmData[] mData;
+    String minute;
+    String formattedTime;
+    AlarmData data;
 
     public EditAdapter(Context context, int layoutResourceId, AlarmData[] data ) {
         super(context, layoutResourceId, data);
@@ -58,31 +66,70 @@ public class EditAdapter extends ArrayAdapter<AlarmData> {
 
             holder.timeView = (TextView) row.findViewById(R.id.edit_alarm_time);
             holder.nameView = (TextView) row.findViewById(R.id.edit_alarm_name);
-            holder.switchView = (Switch) row.findViewById(R.id.edit_switch);
-
-
-
+            holder.switchView = (Switch) row.findViewById(R.id.on_off_switch);
             row.setTag(holder);
+
         }else {
             holder = (PlaceHolder) row.getTag();
         }
 
-        AlarmData data = mData[position];
+        data = mData[position];
 
+        holder.switchView.setChecked(data.mSwitch);
+        holder.switchView.setOnCheckedChangeListener(onOffListener);
 
-        holder.switchView.setChecked(data.ismSwitch());
+        Integer myPosition = position;
+        holder.switchView.setTag(myPosition);
+
         holder.nameView.setText(data.getmName());
 
-        String hour = String.valueOf(data.getmHour());
-        String minute = String.valueOf(data.getmMinute());
+        int hour = data.getmHour();
+        int fixMinute = data.getmMinute();
 
-        holder.timeView.setText(hour + ":" + minute);
+        if (fixMinute > 9 ) {
+            minute = String.valueOf(data.getmMinute());
+        } else {
+            minute = "0" + String.valueOf(data.getmMinute());
+        }
+        formattedTime = "time";
+        if(hour > 12){
+            formattedTime=String.format((hour-12)+":"+ minute + " PM");
+        } else if(hour == 12) {
+            formattedTime=String.format(12+":"+ minute +" AM");
+        }else {
+            formattedTime=String.format(hour+":" + minute + "AM");
 
+        }
 
+        holder.timeView.setText(formattedTime);
 
         return row;
 
     }
+
+    CompoundButton.OnCheckedChangeListener onOffListener = new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                Integer viewPosition = (Integer) buttonView.getTag();
+                isChecked = mData[viewPosition].mSwitch;
+
+                if(isChecked) {
+                   mData[viewPosition].turnOff(mContext);
+                   mData[viewPosition].setmSwitch(false);
+                   notifyDataSetChanged();
+                   Storage.getInstance().add(mContext, mData[viewPosition]);
+
+
+                } else {
+                    mData[viewPosition].turnOn(mContext);
+                    mData[viewPosition].setmSwitch(true);
+                    notifyDataSetChanged();
+                    Storage.getInstance().add(mContext, mData[viewPosition]);
+
+
+                }
+            }
+        };
 
 
     static class PlaceHolder {
