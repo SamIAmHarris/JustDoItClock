@@ -5,4 +5,32 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <string name="save">Save</string>
+    <string name="volume">Volume</string>
+    <string name="repeat">Repeat</string>
+    <string name="phrase">Phrase</string>
+    <string name="name">Name</string>
+    <string name="enter_phrase">Enter Phrase</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="add_alarm">Add Alarm</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+
+    <string name="enter_text_here">Enter Text Here</string>
+    <string name="phrase_goes_here">Phrase Goes Here</string>
+
+    <string name="plus">+</string>
+    <string name="edit">Edit</string>
+
+
+
+
+
+
+
 </resources>

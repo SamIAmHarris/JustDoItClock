@@ -83,6 +83,7 @@ public class EditAdapter extends ArrayAdapter<AlarmData> {
 
         holder.nameView.setText(data.getmName());
 
+        //Displaying time in 12 hour instead of 24 hour
         int hour = data.getmHour();
         int fixMinute = data.getmMinute();
 
@@ -107,29 +108,30 @@ public class EditAdapter extends ArrayAdapter<AlarmData> {
 
     }
 
+    //on/off button unique to its position
     CompoundButton.OnCheckedChangeListener onOffListener = new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                Integer viewPosition = (Integer) buttonView.getTag();
-                isChecked = mData[viewPosition].mSwitch;
+            Integer viewPosition = (Integer) buttonView.getTag();
+            isChecked = mData[viewPosition].mSwitch;
 
-                if(isChecked) {
-                   mData[viewPosition].turnOff(mContext);
-                   mData[viewPosition].setmSwitch(false);
-                   notifyDataSetChanged();
-                   Storage.getInstance().add(mContext, mData[viewPosition]);
-
-
-                } else {
-                    mData[viewPosition].turnOn(mContext);
-                    mData[viewPosition].setmSwitch(true);
-                    notifyDataSetChanged();
-                    Storage.getInstance().add(mContext, mData[viewPosition]);
+            if(isChecked) {
+                mData[viewPosition].turnOff(mContext);
+                mData[viewPosition].setmSwitch(false);
+                notifyDataSetChanged();
+                Storage.getInstance().add(mContext, mData[viewPosition]);
 
 
-                }
+            } else {
+                mData[viewPosition].turnOn(mContext);
+                mData[viewPosition].setmSwitch(true);
+                notifyDataSetChanged();
+                Storage.getInstance().add(mContext, mData[viewPosition]);
+
+
             }
-        };
+        }
+    };
 
 
     static class PlaceHolder {

@@ -16,10 +16,7 @@ import java.util.HashMap;
  */
 public class Storage {
 
-
-    //
     // Singleton pattern here:
-    //
     private static Storage storageRef;
     private Storage(){
 
@@ -32,14 +29,11 @@ public class Storage {
         return storageRef;
     }
 
-    //
     // Serialization here
-    //
 
     static String DATA_FILE_ARRAY = "data_file_array";
 
 
-    //this method is private so we can control what gets saved.
     private static boolean saveMyData(Context context, HashMap<String,AlarmData> myData) {
         try {
             FileOutputStream fos = context.openFileOutput(DATA_FILE_ARRAY, Context.MODE_PRIVATE);

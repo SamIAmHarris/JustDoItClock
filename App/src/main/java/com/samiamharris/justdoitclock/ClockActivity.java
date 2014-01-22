@@ -20,10 +20,8 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
 
     // What will this class need to do?
     // go directly to the clock fragment on start up
-    // communicate between fragments (like the headline/article)
-    // pass data between fragments (something with bundle)
-    // not sure if this will have the alarm manager
-
+    // communicate between fragments
+    // pass data between fragments
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +36,6 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
                     .commit();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,25 +57,21 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     public void onAddSelected() {
 
         AddFragment addFragment = new AddFragment();
 
-
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, addFragment)
                 .addToBackStack(null)
                 .commit();
-     }
+    }
 
     @Override
     public void onEditSelected() {
 
         EditFragment editFragment = new EditFragment();
-
-
 
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, editFragment )
@@ -89,7 +82,6 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
     @Override
     public void onEditAlarmSelected(String name) {
 
-        //pass the name up to the fragment.
         AddFragment addFragment = new AddFragment();
 
         Bundle args = new Bundle();
@@ -108,9 +100,6 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
 
         ClockFragment clockFragment = new ClockFragment();
 
-        //retrieve the Alarm Data Object from Add Fragment
-        //AlarmData newData = Storage.getInstance().getMyData(this);
-
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, clockFragment)
                 .addToBackStack(null)
@@ -123,9 +112,6 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
     public void onPhraseTyped() {
 
         ClockFragment clockFragment = new ClockFragment();
-
-        //retrieve the Alarm Data Object from Add Fragment
-        //AlarmData newData = Storage.getInstance().getMyData(this);
 
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, clockFragment)
@@ -144,8 +130,6 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
         Bundle args = new Bundle();
         args.putString("activeName", activeName);
         phraseFragment.setArguments(args);
-        //retrieve the Alarm Data Name
-        //AlarmData newData = Storage.getInstance().getMyData(this);
 
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, phraseFragment)

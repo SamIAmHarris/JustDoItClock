@@ -28,7 +28,6 @@ public class AlarmReceiver extends BroadcastReceiver{
         HashMap<String,AlarmData> alarms = Storage.getInstance().getMyData(context);
         AlarmData receivedAlarm = alarms.get(whichAlarm);
         if(receivedAlarm != null){
-            //receivedAlarm.performAlarm(context);
 
             try
             {
