@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.PowerManager;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * Created by samharris on 12/19/13.
@@ -27,7 +30,33 @@ public class AlarmReceiver extends BroadcastReceiver{
         //find the alarm we got
         HashMap<String,AlarmData> alarms = Storage.getInstance().getMyData(context);
         AlarmData receivedAlarm = alarms.get(whichAlarm);
-        if(receivedAlarm != null){
+
+        Calendar c = Calendar.getInstance();
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        boolean noRepeat;
+        //check if no repeat was hit
+
+        if (receivedAlarm.monday || receivedAlarm.tuesday || receivedAlarm.wednesday || receivedAlarm.thursday
+                || receivedAlarm.friday || receivedAlarm.saturday || receivedAlarm.sunday) {
+
+            noRepeat = false;
+        } else {
+            noRepeat = true;
+        }
+
+        boolean[] days = new boolean[8];
+
+        days[0] = noRepeat;
+        days[1] = receivedAlarm.sunday;
+        days[2] = receivedAlarm.monday;
+        days[3] = receivedAlarm.tuesday;
+        days[4] = receivedAlarm.wednesday;
+        days[5] = receivedAlarm.thursday;
+        days[6] = receivedAlarm.friday;
+        days[7] = receivedAlarm.saturday;
+
+
+        if(receivedAlarm != null && noRepeat || receivedAlarm!= null && days[dayOfWeek]){
 
             try
             {
