@@ -55,25 +55,30 @@ public class AlarmReceiver extends BroadcastReceiver{
         days[6] = receivedAlarm.friday;
         days[7] = receivedAlarm.saturday;
 
+        //fixing time < current time bug
 
-        if(receivedAlarm != null && noRepeat || receivedAlarm!= null && days[dayOfWeek]){
+        if (receivedAlarm.alarmEvent.getTimeInMillis() < System.currentTimeMillis() && (days[dayOfWeek]) || days[0]) {
+            return;
 
-            try
-            {
+        } else {
 
-                Intent alarmIntent = new Intent( context, ClockActivity.class );
-                alarmIntent.addFlags(Intent.FLAG_FROM_BACKGROUND);
-                alarmIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                alarmIntent.putExtra("Alarm Name", receivedAlarm.getmName());
-                context.startActivity(alarmIntent);
-            }
-            catch( Exception e )
-            {
+            if(receivedAlarm != null && noRepeat || receivedAlarm!= null && days[dayOfWeek]){
 
+                try
+                {
+
+                    Intent alarmIntent = new Intent( context, ClockActivity.class );
+                    alarmIntent.addFlags(Intent.FLAG_FROM_BACKGROUND);
+                    alarmIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    alarmIntent.putExtra("Alarm Name", receivedAlarm.getmName());
+                    context.startActivity(alarmIntent);
+                }
+                catch( Exception e ) {
+
+                }
             }
         }
-
 
         //Release the lock
         wl.release();
