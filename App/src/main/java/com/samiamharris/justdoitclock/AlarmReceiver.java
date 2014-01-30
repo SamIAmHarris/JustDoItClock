@@ -55,13 +55,6 @@ public class AlarmReceiver extends BroadcastReceiver{
         days[6] = receivedAlarm.friday;
         days[7] = receivedAlarm.saturday;
 
-        //fixing time < current time bug
-
-        if (receivedAlarm.alarmEvent.getTimeInMillis() < System.currentTimeMillis() && (days[dayOfWeek]) || days[0]) {
-            return;
-
-        } else {
-
             if(receivedAlarm != null && noRepeat || receivedAlarm!= null && days[dayOfWeek]){
 
                 try
@@ -78,7 +71,7 @@ public class AlarmReceiver extends BroadcastReceiver{
 
                 }
             }
-        }
+
 
         //Release the lock
         wl.release();

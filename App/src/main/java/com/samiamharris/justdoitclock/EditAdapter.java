@@ -98,6 +98,8 @@ public class EditAdapter extends ArrayAdapter<AlarmData> {
         if(hour > 12){
             formattedTime=String.format((hour-12)+":"+ minute + " PM");
         } else if(hour == 12) {
+            formattedTime=String.format(12+":"+ minute +" PM");
+        }else if(hour == 0) {
             formattedTime=String.format(12+":"+ minute +" AM");
         }else {
             formattedTime=String.format(hour+":" + minute + "AM");

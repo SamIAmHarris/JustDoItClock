@@ -17,7 +17,7 @@ public class MultiSpinner extends Spinner implements
         DialogInterface.OnMultiChoiceClickListener, DialogInterface.OnCancelListener {
 
     private List<String> items;
-    private boolean[] selected;
+    public boolean[] selected;
     private String defaultText;
     private MultiSpinnerListener listener;
 

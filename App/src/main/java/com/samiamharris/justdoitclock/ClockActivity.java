@@ -111,12 +111,14 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
     @Override
     public void onPhraseTyped() {
 
+        getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
         ClockFragment clockFragment = new ClockFragment();
 
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, clockFragment)
-                .addToBackStack(null)
                 .commit();
+
     }
 
     @Override
@@ -133,8 +135,9 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
 
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, phraseFragment)
-                .addToBackStack(null)
+                .addToBackStack("phrase")
                 .commit();
 
     }
+
 }
