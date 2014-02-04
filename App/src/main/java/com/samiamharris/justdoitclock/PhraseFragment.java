@@ -97,6 +97,7 @@ public class PhraseFragment extends Fragment{
                         mp.stop();
                         alarmPerformedCallback.onPhraseTyped();
 
+
                     }
                 }
 

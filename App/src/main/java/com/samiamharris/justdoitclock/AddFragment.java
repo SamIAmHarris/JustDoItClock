@@ -1,7 +1,9 @@
 package com.samiamharris.justdoitclock;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,6 +40,7 @@ public class AddFragment extends Fragment implements View.OnClickListener, Multi
     List<String> items;
     TimePicker timePicker;
     MultiSpinner multiSpinner;
+
 
     OnSaveListener saveClickCallback;
     AlarmData savedAlarm;
@@ -165,6 +168,11 @@ public class AddFragment extends Fragment implements View.OnClickListener, Multi
 
             savedAlarm = Storage.getInstance().getDataForName(getActivity(), args.getString("name"));
 
+            savedAlarm.turnOff(getActivity());
+            savedAlarm.setmSwitch(false);
+
+            Toast.makeText(getActivity(), savedAlarm.getmName() + " currently turned off", Toast.LENGTH_LONG).show();
+
             //Set both Edit Texts
             nameText.setText(savedAlarm.getmName());
             phraseText.setText(savedAlarm.getmPhrase());
@@ -174,6 +182,7 @@ public class AddFragment extends Fragment implements View.OnClickListener, Multi
             timePicker.setCurrentMinute(savedAlarm.getmMinute());
 
             //set Repeat option
+//            multiSpinner.selected = new boolean[7];
 //            multiSpinner.selected[0] = savedAlarm.monday;
 //            multiSpinner.selected[1] = savedAlarm.tuesday;
 //            multiSpinner.selected[2] = savedAlarm.wednesday;
@@ -186,6 +195,10 @@ public class AddFragment extends Fragment implements View.OnClickListener, Multi
 
             //set volume
             addSeekBar.setProgress(savedAlarm.getmVolume());
+
+            //
+            Storage.getInstance().add(getActivity(), savedAlarm);
+
 
 
         } else {

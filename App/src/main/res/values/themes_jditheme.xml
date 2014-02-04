@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="JDITheme" parent="android:Theme.Holo">
+
+    <item name="android:editTextBackground">@drawable/jditheme_edit_text_holo_dark</item>
+
+    <item name="android:listChoiceIndicatorMultiple">@drawable/jditheme_btn_check_holo_dark</item>
+
+    <item name="android:buttonStyle">@style/ButtonJDITheme</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonJDITheme</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/SpinnerJDITheme</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarJDITheme</item>
+
+  </style>
+
+</resources>
