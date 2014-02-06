@@ -158,6 +158,21 @@ public class AddFragment extends Fragment implements View.OnClickListener, Multi
         phraseText = (EditText) getActivity().findViewById(R.id.add_phrase);
         nameText = (EditText) getActivity().findViewById(R.id.add_name);
 
+        //Set up multi spinner
+        items =  new ArrayList<String>(7);
+
+        items.add(0,"Repeat Monday");
+        items.add(1,"Repeat Tuesday");
+        items.add(2,"Repeat Wednesday");
+        items.add(3,"Repeat Thursday");
+        items.add(4,"Repeat Friday");
+        items.add(5,"Repeat Saturday");
+        items.add(6,"Repeat Sunday");
+
+
+        String defaultText = "None";
+
+        multiSpinner.setItems(items, defaultText, this);
 
         //instantiating the Alarm Data Object
         //use the alarmdata that was passed in
@@ -182,14 +197,13 @@ public class AddFragment extends Fragment implements View.OnClickListener, Multi
             timePicker.setCurrentMinute(savedAlarm.getmMinute());
 
             //set Repeat option
-//            multiSpinner.selected = new boolean[7];
-//            multiSpinner.selected[0] = savedAlarm.monday;
-//            multiSpinner.selected[1] = savedAlarm.tuesday;
-//            multiSpinner.selected[2] = savedAlarm.wednesday;
-//            multiSpinner.selected[3] = savedAlarm.thursday;
-//            multiSpinner.selected[4] = savedAlarm.friday;
-//            multiSpinner.selected[5] = savedAlarm.saturday;
-//            multiSpinner.selected[6] = savedAlarm.sunday;
+            multiSpinner.selected[0] = savedAlarm.monday;
+            multiSpinner.selected[1] = savedAlarm.tuesday;
+            multiSpinner.selected[2] = savedAlarm.wednesday;
+            multiSpinner.selected[3] = savedAlarm.thursday;
+            multiSpinner.selected[4] = savedAlarm.friday;
+            multiSpinner.selected[5] = savedAlarm.saturday;
+            multiSpinner.selected[6] = savedAlarm.sunday;
 
             //To Do List
 
@@ -211,20 +225,20 @@ public class AddFragment extends Fragment implements View.OnClickListener, Multi
 
         //multispinner setup
 
-        items =  new ArrayList<String>(7);
-
-        items.add(0,"Repeat Monday");
-        items.add(1,"Repeat Tuesday");
-        items.add(2,"Repeat Wednesday");
-        items.add(3,"Repeat Thursday");
-        items.add(4,"Repeat Friday");
-        items.add(5,"Repeat Saturday");
-        items.add(6,"Repeat Sunday");
-
-
-        String defaultText = "None";
-
-        multiSpinner.setItems(items, defaultText, this);
+//        items =  new ArrayList<String>(7);
+//
+//        items.add(0,"Repeat Monday");
+//        items.add(1,"Repeat Tuesday");
+//        items.add(2,"Repeat Wednesday");
+//        items.add(3,"Repeat Thursday");
+//        items.add(4,"Repeat Friday");
+//        items.add(5,"Repeat Saturday");
+//        items.add(6,"Repeat Sunday");
+//
+//
+//        String defaultText = "None";
+//
+//        multiSpinner.setItems(items, defaultText, this);
 
         //Setting the Volume to the Alarm Data Object
         addSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
