@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -19,10 +20,10 @@ public class AlarmReceiver extends BroadcastReceiver{
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-//        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DELTA");
-//        //Acquire the lock
-//        wl.acquire();
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DELTA");
+        //Acquire the lock
+        wl.acquire();
 
         Bundle b = intent.getExtras();
         String whichAlarm = b.getString(AlarmData.INTENT_KEY);
@@ -61,11 +62,13 @@ public class AlarmReceiver extends BroadcastReceiver{
                 {
 
                     Intent alarmIntent = new Intent( context, ClockActivity.class );
-                    alarmIntent.addFlags(Intent.FLAG_FROM_BACKGROUND);
+                    //alarmIntent.addFlags(Intent.FLAG_FROM_BACKGROUND);
                     alarmIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     alarmIntent.putExtra("Alarm Name", receivedAlarm.getmName());
+                    alarmIntent.putExtra("Check Intent", true);
                     context.startActivity(alarmIntent);
+                    Log.d("TAG", "INTENT LAUNCHED TO MAIN");
                 }
                 catch( Exception e ) {
 
@@ -74,6 +77,6 @@ public class AlarmReceiver extends BroadcastReceiver{
 
 
         //Release the lock
-        //wl.release();
+        wl.release();
     }
 }

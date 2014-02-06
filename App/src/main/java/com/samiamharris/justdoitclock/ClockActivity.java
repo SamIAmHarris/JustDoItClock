@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,15 +23,17 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
     // go directly to the clock fragment on start up
     // communicate between fragments
     // pass data between fragments
+    boolean checkLauncher = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.clock_activity);
 
+        Log.d("TAG", "ONCREATE");
         ClockFragment clockFragment = new ClockFragment();
 
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null){
             getFragmentManager().beginTransaction()
                     .add(R.id.container, clockFragment)
                     .commit();
@@ -55,6 +58,36 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Intent intent = this.getIntent();
+        Bundle extras = intent.getExtras();
+
+        if(extras != null){
+        checkLauncher = extras.getBoolean("Check Intent");
+        }
+
+        if(checkLauncher) {
+
+            Log.d("TAG", "ALARMINTENT");
+            PhraseFragment phraseFragment = new PhraseFragment();
+
+            String activeName = intent.getStringExtra("Alarm Name");
+
+            Bundle args = new Bundle();
+            args.putString("activeName", activeName);
+            phraseFragment.setArguments(args);
+
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, phraseFragment)
+                    .addToBackStack("phrase")
+                    .commit();
+
+        }
     }
 
     @Override
@@ -125,6 +158,8 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
+        Log.d("TAG", "INTENT RECEIVED");
+
         PhraseFragment phraseFragment = new PhraseFragment();
 
         String activeName = intent.getStringExtra("Alarm Name");
@@ -140,4 +175,13 @@ public class ClockActivity extends Activity implements ClockFragment.OnAddEditLi
 
     }
 
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Log.d("TAG", "ONDESTROY");
+
+    }
 }

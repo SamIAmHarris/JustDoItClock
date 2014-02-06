@@ -10,7 +10,7 @@
         android:id="@+id/pre_phrase"
         android:text="@string/phrase_goes_here"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="100dp"
         android:textSize="25sp"/>
 
     <EditText
@@ -19,7 +19,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/pre_phrase"
         android:hint="@string/enter_text_here"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="75dp"
         android:id="@+id/post_phrase"
         android:textSize="25sp"/>
 
